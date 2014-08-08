@@ -18,15 +18,18 @@ require('node-jsx').install({harmony: true});
 
 var fs = require("fs");
 var React = require("react");
-var App = require("../../client/app/app");
+var App = require("../../client/app/app_router");
 var router = require('express').Router({caseSensitive: true, strict: true});
 
 //only read on startup
 var template = fs.readFileSync(__dirname + "/../../client/app.html", {encoding:'utf8'});
 
 function renderToHtml(route, callback){
+  //just to see what is hitting the server
+  console.log(route);
+  
   //render the app
-  var body = React.renderComponentToString( App() );
+  var body = React.renderComponentToString( App({initialPath: route}) );
 
   //merge body into template
   var html = template.replace(/<\/body>/, body + "</body>");

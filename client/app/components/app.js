@@ -18,7 +18,7 @@ var App = React.createClass({
       <div className='app'>
         <MainHeader currentUri='/'/>
         <div className='main-content'>
-          {this.props.children}
+          {<this.props.activeRouteHandler />}
         </div>
       </div>
     );

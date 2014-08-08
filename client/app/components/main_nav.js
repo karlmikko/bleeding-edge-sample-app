@@ -3,6 +3,8 @@
 var React = require("react/addons");
 var classSet = React.addons.classSet;
 
+var Link = require('react-router').Link;
+
 var NAV_ITEMS = {
   'All Surveys': '/',
   'Add Survey': '/add_survey'
@@ -22,7 +24,9 @@ var MainNav = React.createClass({
         'current': uri === currentUri
       });
 
-      return <a key={i} href={uri} className={className}>{key}</a>;
+      return <Link key={i} to={uri}>{key}</Link>
+
+      // return <a key={i} href={uri} className={className}>{key}</a>;
     });
 
     return (
