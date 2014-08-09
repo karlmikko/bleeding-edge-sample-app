@@ -27,33 +27,21 @@ var router = require('express').Router({caseSensitive: true, strict: true});
 //only read on startup
 var template = fs.readFileSync(__dirname + "/../../client/app.html", {encoding:'utf8'});
 
-// function renderToHtml(route, callback){
-//   //just to see what is hitting the server
-//   console.log(route);
-
-//   //render the app
-//   var body = React.renderComponentToString( App({initialPath: route}) );
-
-//   //merge body into template
-//   var html = template.replace(/<\/body>/, body + "</body>");
-
-//   process.nextTick(function(){
-//     callback(null, html);
-//   });
-// }
-
 //wildcard route to pass to react client app
 router.get('*', function(req, res) {
-  Router.renderRoutesToString(app_router, req.url, req.query).then(function(body){
-    var html = template.replace(/<\/body>/, body + "</body>");
+  if(req.url == '/favicon.ico'){
+    return res.status(404).end();
+  }
+  Router.renderRoutesToString(app_router, req.url, req.query).then(function(data){
+
+    var html = template.replace(/\{\{body\}\}/, data.html);
+    html = html.replace(/\{\{initialData\}\}/, JSON.stringify(data.initialData));
     res.send(html);
+
   }, function(err){
     console.error(err.stack);
     res.send("Error")
   });
-  // renderToHtml(req.url, function(err, html){
-  //   res.send(html);
-  // });
 });
 
 module.exports = router;

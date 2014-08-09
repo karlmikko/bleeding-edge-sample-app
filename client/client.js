@@ -8,13 +8,11 @@
 require('es5-shim/es5-shim');
 require('es5-shim/es5-sham');
 
-var React = require('react');
+var React = require('react/addons');
 var app_router = require('./app/app_router');
 
 
 //allow react dev tools work
 window.React = React;
 
-window.onload = function(){
-  React.renderComponent(app_router, document.body);
-}
+React.renderComponent(React.addons.cloneWithProps(app_router, {initialData: initialData}), document.body);

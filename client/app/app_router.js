@@ -8,13 +8,23 @@ var App = require('./components/app');
 var NotFound = require('./components/not_found');
 
 
-var SurveyList = 
-SurveyAdd = 
-SurveyTake = 
+var SurveyTake = 
 SurveyEdit = 
 SurveySummary = React.createClass({
   render: function(){
     return <div>Hi</div>
+  }
+});
+
+var SurveyList = React.createClass({
+  render: function(){
+    return <div>List</div>
+  }
+});
+
+var SurveyAdd = React.createClass({
+  render: function(){
+    return <div>Add</div>
   }
 });
 
