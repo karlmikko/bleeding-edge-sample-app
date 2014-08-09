@@ -9,9 +9,12 @@ require('es5-shim/es5-shim');
 require('es5-shim/es5-sham');
 
 var React = require('react');
-var App = require('./app/app_router');
+var app_router = require('./app/app_router');
 
-React.renderComponent(<App/>, document.body);
 
 //allow react dev tools work
 window.React = React;
+
+window.onload = function(){
+  React.renderComponent(app_router, document.body);
+}

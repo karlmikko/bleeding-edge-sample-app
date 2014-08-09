@@ -14,13 +14,11 @@ SurveyTake =
 SurveyEdit = 
 SurveySummary = React.createClass({
   render: function(){
-    return <div>{JSON.stringify(this.props)}</div>
+    return <div>Hi</div>
   }
 });
 
-var AppRouter = React.createClass({
-  render:function(){
-    return <Routes initialPath={this.props.initialPath} location="history">
+var app_router = <Routes location="history">
       <Route handler={App}>
         <Route name="list" path="/" handler={SurveyList} />
         <Route name="add" path="/add_survey" handler={SurveyAdd} />
@@ -32,7 +30,5 @@ var AppRouter = React.createClass({
         <Route name="not-found" path="*" handler={NotFound}/>
       </Route>
     </Routes>
-  }
-});
 
-module.exports = AppRouter;
+module.exports = app_router;

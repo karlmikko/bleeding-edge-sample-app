@@ -18,32 +18,42 @@ require('node-jsx').install({harmony: true});
 
 var fs = require("fs");
 var React = require("react");
-var App = require("../../client/app/app_router");
+
+var Router = require("react-router");
+
+var app_router = require("../../client/app/app_router");
 var router = require('express').Router({caseSensitive: true, strict: true});
 
 //only read on startup
 var template = fs.readFileSync(__dirname + "/../../client/app.html", {encoding:'utf8'});
 
-function renderToHtml(route, callback){
-  //just to see what is hitting the server
-  console.log(route);
-  
-  //render the app
-  var body = React.renderComponentToString( App({initialPath: route}) );
+// function renderToHtml(route, callback){
+//   //just to see what is hitting the server
+//   console.log(route);
 
-  //merge body into template
-  var html = template.replace(/<\/body>/, body + "</body>");
+//   //render the app
+//   var body = React.renderComponentToString( App({initialPath: route}) );
 
-  process.nextTick(function(){
-    callback(null, html);
-  });
-}
+//   //merge body into template
+//   var html = template.replace(/<\/body>/, body + "</body>");
+
+//   process.nextTick(function(){
+//     callback(null, html);
+//   });
+// }
 
 //wildcard route to pass to react client app
 router.get('*', function(req, res) {
-  renderToHtml(req.url, function(err, html){
+  Router.renderRoutesToString(app_router, req.url, req.query).then(function(body){
+    var html = template.replace(/<\/body>/, body + "</body>");
     res.send(html);
+  }, function(err){
+    console.error(err.stack);
+    res.send("Error")
   });
+  // renderToHtml(req.url, function(err, html){
+  //   res.send(html);
+  // });
 });
 
 module.exports = router;
