@@ -15,4 +15,4 @@ var app_router = require('./app/app_router');
 //allow react dev tools work
 window.React = React;
 
-React.renderComponent(React.addons.cloneWithProps(app_router, {initialData: initialData}), document.body);
+React.renderComponent(React.addons.cloneWithProps(app_router, {initialData: window.initialData}), document.body);

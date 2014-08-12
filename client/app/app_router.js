@@ -3,6 +3,9 @@ var React = require("react");
 var Router = require("react-router");
 var Routes = Router.Routes;
 var Route = Router.Route;
+var AsyncState = require('react-router').AsyncState;
+var Promise = require('es6-promise').Promise;
+
 
 var App = require('./components/app');
 var NotFound = require('./components/not_found');
@@ -17,8 +20,24 @@ SurveySummary = React.createClass({
 });
 
 var SurveyList = React.createClass({
+  mixins:[AsyncState],
+  statics:{
+    getInitialAsyncState: function(path, query, setState){
+      return new Promise(function(resolve, reject){
+        setTimeout(function(){
+          setState({
+            name:'nav'
+          })
+          resolve();
+        }, 1000)
+      });
+    }
+  },
   render: function(){
-    return <div>List</div>
+    if(!this.state.name){
+      return <div>Loading ... </div>
+    }
+    return <div>List {this.state.name}</div>
   }
 });
 

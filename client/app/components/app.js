@@ -26,9 +26,9 @@ var App = React.createClass({
     }
     return (
       <div className='app'>
-        <MainHeader currentUri='/'/>
-        <div className='main-content'>
-          {<this.props.activeRouteHandler />} Hi {this.state.name}
+        <MainHeader/>
+        <div className='main-content container-fluid'>
+          {<this.props.activeRouteHandler />}
         </div>
       </div>
     );

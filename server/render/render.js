@@ -32,7 +32,7 @@ router.get('*', function(req, res) {
   if(req.url == '/favicon.ico'){
     return res.status(404).end();
   }
-  Router.renderRoutesToString(app_router, req.url, req.query).then(function(data){
+  Router.renderRoutesToString(app_router, req.originalUrl).then(function(data){
 
     var html = template.replace(/\{\{body\}\}/, data.html);
     html = html.replace(/\{\{initialData\}\}/, JSON.stringify(data.initialData));

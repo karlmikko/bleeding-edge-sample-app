@@ -6,12 +6,12 @@ var TestUtils = React.addons.TestUtils;
 var MainNav = require('../../../../client/app/components/main_nav');
 
 // verifying karma-jasmine is working
-describe("components/main_nav", function (){
+describe("components/main_nav", function () {
   var subject;
 
   beforeEach(function () {
     subject = TestUtils.renderIntoDocument(
-      <MainNav currentUri='/add_survey' />
+      <MainNav />
     );
   });
 
@@ -28,36 +28,5 @@ describe("components/main_nav", function (){
       expect( item.props.children ).toBe( 'Add Survey' );
     });
 
-    describe('when currentUri is "/"', function () {
-      beforeEach(function () {
-        subject.setProps({ currentUri: '/' });
-      });
-
-      it('marks "All Surveys" as current', function () {
-        var currentItem = TestUtils.findRenderedDOMComponentWithClass(
-          subject,
-          'current'
-        );
-
-        expect( currentItem.props.href ).toBe( '/' );
-        expect( currentItem.props.children ).toBe( 'All Surveys' );
-      });
-    });
-
-    describe('when currentUri is "/add_survey"', function () {
-      beforeEach(function () {
-        subject.setProps({ currentUri: '/add_survey' });
-      });
-
-      it('marks "Add Survey" as current', function () {
-        var currentItem = TestUtils.findRenderedDOMComponentWithClass(
-          subject,
-          'current'
-        );
-
-        expect( currentItem.props.href ).toBe( '/add_survey' );
-        expect( currentItem.props.children ).toBe( 'Add Survey' );
-      });
-    });
   });
 });
